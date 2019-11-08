@@ -36,11 +36,11 @@ jobs:
             echo "Manifests hack" && mkdir -p .repo/manifests
             wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
             ls -la .repo/
+            echo "Total size of files with git histories is -" && du -sh .
+            ( find . -type d -name ".git" && find . -name ".gitignore" ) | xargs rm -rf
+            echo "After deleting git junks, total size is -" && du -sh .
             tree -a -L 5 >> ../tree.log
             curl --upload-file ../tree.log https://transfer.sh/pbrp6.tree.log && echo ""
-            echo "Total size of files with git histories is -" && du -sh .
-            find . -type d -name ".git" | xargs rm -rf
-            echo "After deleting git junks, total size is -" && du -sh .
             echo "Start the Build Process"
             export ALLOW_MISSING_DEPENDENCIES=true
             source build/envsetup.sh
