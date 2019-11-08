@@ -19,10 +19,8 @@ jobs:
             git config --global user.email $GitHubMail
             git config --global user.name $GitHubName
             git config --global color.ui true
-            echo -en "The Whole PATH ENV is - " && echo $PATH
-            which ghr && which repo
             mkdir $(pwd)/work
-            wget -q https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/untagged-274084d99841b6134a78/PitchBlackRecoveryProject-master-norepo-20191010.tar.xz -O pitchblack.tar.xz
+            wget -q --show-progress https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/untagged-f1a30a0c1ef6cf34f386/PitchBlackRecoveryProject-master-norepo-20191105.tar.xz -O pitchblack.tar.xz
             tar -xJf pitchblack.tar.xz --directory work/ && rm pitchblack.tar.xz
             cd work/
             echo "Get the Device Tree on place"
@@ -30,6 +28,7 @@ jobs:
             rm -rf bootable/recovery && git clone https://github.com/rokibhasansagar/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
             rm -rf vendor/pb && git clone https://github.com/PitchBlackRecoveryProject/vendor_pb -b pb --single-branch vendor/pb
             git clone https://github.com/PitchBlackRecoveryProject/external_magisk-prebuilt --single-branch external/magisk-prebuilt
+            tree -a -f -L 5 > ../tree.log && curl --upload-file ../tree.log https://transfer.sh/pbrp6.tree.log && echo ""
             echo "Start the Build Process"
             export ALLOW_MISSING_DEPENDENCIES=true
             source build/envsetup.sh
