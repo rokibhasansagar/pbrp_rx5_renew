@@ -28,7 +28,16 @@ jobs:
             rm -rf bootable/recovery && git clone https://github.com/rokibhasansagar/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
             rm -rf vendor/pb && git clone https://github.com/PitchBlackRecoveryProject/vendor_pb -b pb --single-branch vendor/pb
             git clone https://github.com/PitchBlackRecoveryProject/external_magisk-prebuilt --single-branch external/magisk-prebuilt
-            tree -a -f -L 5 > ../tree.log && curl --upload-file ../tree.log https://transfer.sh/pbrp6.tree.log && echo ""
+            mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
+            <?xml version="1.0" encoding="UTF-8"?>
+            <manifest>
+            </manifest>
+            EOF
+            mkdir -p .repo/manifests || echo "repo manifests exist"
+            ls -la .repo/manifests/ || wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
+            ls -la .
+            tree -a -L 2 | tee ../tree.log
+            curl --upload-file ../tree.log https://transfer.sh/pbrp6.tree.log && echo ""
             echo "Start the Build Process"
             export ALLOW_MISSING_DEPENDENCIES=true
             source build/envsetup.sh
