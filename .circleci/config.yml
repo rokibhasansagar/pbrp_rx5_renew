@@ -1,0 +1,50 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # new all-in-one docker image
+      - image: fr3akyphantom/pitchblack-builder:latest
+    environment:
+      PBRP_BRANCH: 'features-patch-2' # bootable_recovery
+      VERSION: '2.9.0'
+      VENDOR: 'WALTON'
+      CODENAME: 'Primo_RX5'
+      BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
+    working_directory: /home/builder/pitchblack
+    steps:
+      - checkout
+      - run:
+          name: AIO Build
+          command: |
+            echo "Set GitAuth Infos too"
+            git config --global user.email $GitHubMail
+            git config --global user.name $GitHubName
+            git config --global color.ui true
+            echo -en "The Whole PATH ENV is - " && echo $PATH
+            which ghr && which repo
+            mkdir $(pwd)/work
+            wget -q https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/untagged-274084d99841b6134a78/PitchBlackRecoveryProject-master-norepo-20191010.tar.xz -O pitchblack.tar.xz
+            tar -xJf pitchblack.tar.xz --directory work/ && rm pitchblack.tar.xz
+            cd work/
+            echo "Get the Device Tree on place"
+            git clone https://github.com/rokibhasansagar/pbrp_rx5_renew -b master device/${VENDOR}/${CODENAME}
+            rm -rf bootable/recovery && git clone https://github.com/rokibhasansagar/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
+            rm -rf vendor/pb && git clone https://github.com/PitchBlackRecoveryProject/vendor_pb -b pb --single-branch vendor/pb
+            git clone https://github.com/PitchBlackRecoveryProject/external_magisk-prebuilt --single-branch external/magisk-prebuilt
+            echo "Start the Build Process"
+            export ALLOW_MISSING_DEPENDENCIES=true
+            source build/envsetup.sh
+            lunch ${BUILD_LUNCH}
+            make -j16 recoveryimage
+            echo "Deploying"
+            export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PitchBlack*-UNOFFICIAL.zip 2>/dev/null)
+            if [[ $TEST_BUILD == 'true' ]] && [[ -n $TEST_BUILDFILE ]]
+            then
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test ${TEST_BUILDFILE}
+            fi
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+          context: personal-envs
