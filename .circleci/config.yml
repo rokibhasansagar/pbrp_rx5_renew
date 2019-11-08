@@ -9,7 +9,6 @@ jobs:
       VERSION: '2.9.0'
       VENDOR: 'WALTON'
       CODENAME: 'Primo_RX5'
-      BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
     working_directory: /home/builder/pitchblack
     steps:
       - checkout
@@ -34,7 +33,7 @@ jobs:
             echo "Start the Build Process"
             export ALLOW_MISSING_DEPENDENCIES=true
             source build/envsetup.sh
-            lunch ${BUILD_LUNCH}
+            lunch omni_${CODENAME}-userdebug
             make -j16 recoveryimage
             echo "Deploying"
             export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PitchBlack*-UNOFFICIAL.zip 2>/dev/null)
