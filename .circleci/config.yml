@@ -22,20 +22,19 @@ jobs:
             wget -q --show-progress https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/untagged-f1a30a0c1ef6cf34f386/PitchBlackRecoveryProject-master-norepo-20191105.tar.xz -O pitchblack.tar.xz
             tar -xJf pitchblack.tar.xz --directory work/ && rm pitchblack.tar.xz
             cd work/
-            ls -la .repo || echo ".repo folder not found"
             echo "Get the Device Tree on place"
-            git clone -q https://github.com/rokibhasansagar/pbrp_rx5_renew -b master device/${VENDOR}/${CODENAME}
-            rm -rf bootable/recovery && git clone -q https://github.com/rokibhasansagar/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery && du -sh bootable/recovery
-            rm -rf vendor/pb && git clone -q https://github.com/PitchBlackRecoveryProject/vendor_pb -b pb --single-branch vendor/pb && du -sh vendor/pb
+            git clone https://github.com/rokibhasansagar/pbrp_rx5_renew -b master device/${VENDOR}/${CODENAME}
+            rm -rf bootable/recovery && git clone -q https://github.com/rokibhasansagar/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
+            rm -rf vendor/pb && git clone -q https://github.com/PitchBlackRecoveryProject/vendor_pb -b pb --single-branch vendor/pb
             git clone -q https://github.com/PitchBlackRecoveryProject/external_magisk-prebuilt --single-branch external/magisk-prebuilt
             rm -rf device/generic/goldfish && rm -rf device/qcom && rm -rf hardware/qcom
-            mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
+            echo "Local manifests hack" && mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
             <?xml version="1.0" encoding="UTF-8"?>
             <manifest>
             </manifest>
             EOF
-            mkdir -p .repo/manifests || echo "repo manifests exist"
-            ls -la .repo/manifests/ || wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
+            echo "Manifests hack" && mkdir -p .repo/manifests
+            wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
             ls -la .repo/
             tree -a -L 5 >> ../tree.log
             curl --upload-file ../tree.log https://transfer.sh/pbrp6.tree.log && echo ""
@@ -44,15 +43,13 @@ jobs:
             echo "After deleting git junks, total size is -" && du -sh .
             echo "Start the Build Process"
             export ALLOW_MISSING_DEPENDENCIES=true
-            set -v
             source build/envsetup.sh
             lunch omni_${CODENAME}-userdebug
             make -j16 recoveryimage
-            set +v
             echo "The build output files takes spaces like this -" && du -sh out/target/product/${CODENAME}/*
             echo "Deploying"
             mkdir deploy && cd deploy
-            cp -a ../out/target/product/${CODENAME}/recovery.zip .
+            cp -a ../out/target/product/${CODENAME}/recovery.img .
             cp -a ../out/target/product/${CODENAME}/PitchBlack*-UNOFFICIAL.zip .
             cd ../
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test deploy/
