@@ -49,7 +49,7 @@ jobs:
             echo "The build output files takes spaces like this -" && du -sh out/target/product/${CODENAME}/*
             echo "Deploying"
             mkdir deploy && cd deploy
-            cp -a ../out/target/product/${CODENAME}/recovery.img .
+            cp -a ../out/target/product/${CODENAME}/*.img .
             cp -a ../out/target/product/${CODENAME}/PitchBlack*-UNOFFICIAL.zip .
             cd ../
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test deploy/
