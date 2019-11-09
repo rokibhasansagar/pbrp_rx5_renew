@@ -1,13 +1,13 @@
 ## Unofficial PitchBlack Recovery Device Tree for WALTON Primo RX5 :smirk:
-[![PBRP Project](https://img.shields.io/badge/PBRP%20Project-On%20Travis%20CI-green.svg)](#)
-[![Build Status](https://travis-ci.com/rokibhasansagar/android_device_twrp_WALTON_Primo_RX5.svg?branch=pbrp)](https://travis-ci.com/rokibhasansagar/android_device_twrp_WALTON_Primo_RX5)
+![](https://img.shields.io/badge/Status-Active%20On%20CircleCI-informational)
+[![CircleCI Build Status](https://circleci.com/gh/rokibhasansagar/pbrp_rx5_renew/tree/master.svg?style=svg)](https://circleci.com/gh/rokibhasansagar/pbrp_rx5_renew/tree/master)
 
 The Mid-Range Priced Walton Primo RX5 (Primo_RX5 / gionee6735_65u_m0) Smartphone was released in Mid 2016 in Bangladesh. It is powered by MediaTek MT6735 chipset, 3 GB of RAM and 16 GB of internal storage.
 It runs on Gionee's Custom AmigoOS v3.2 based on Android OS v6.0 (Marshmallow).
 >For More Info, go to Official [WaltonBD WebSite](http://www.waltonbd.com/index.php?route=product/category&path=24_85) and [Walton Forum](http://www.waltonforum.com/forum/849-walton-primo-rx5/)
 
 ### Special Features
-- [x] Built with Latest Source from October 01, 2018 (updated till October 27)
+- [x] Built upon Latest Tag "android-6.0.1_r81" with security patches till "1st October 2017"
 - [x] Added Support for F2FS, NTFS, ExFAT, FUSE Filesystem
 - [x] Added Logcat, FB2PNG
 - [x] Added Android Pie 9.0 Supportive File Encryption (Just kept for future)
@@ -17,7 +17,7 @@ It runs on Gionee's Custom AmigoOS v3.2 based on Android OS v6.0 (Marshmallow).
 - [x] Edited the Themes a little bit to Make the Recovery Image smaller
 - [x] A little more Optimized with Personal Care
 
-### Check the [Releases](https://github.com/rokibhasansagar/android_device_twrp_WALTON_Primo_RX5/releases/tag/untagged-0a1591617b557370cc8e) Section to Download the (Flashable) PitchBlack Recovery
+### Check the [Releases](https://github.com/rokibhasansagar/pbrp_rx5_renew/releases/latest) Section to Download the (Flashable) PitchBlack Recovery
 
 So, Stay Tuned :wink:
 
