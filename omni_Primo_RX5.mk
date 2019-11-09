@@ -52,22 +52,12 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.dalvik.vm.native.bridge=0
 # ---------------------------------------------------------------
 
-# Test Override switches
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    persist.sys.usb.config=mtp,adb
-
-# Try to keep the bootimg build props empty
-BOOTIMAGE_BUILD_PROPERTIES += \
-    ro.bootimage.build.date="" \
-    ro.bootimage.build.date.utc=""
-
 # ADDITIONAL_DEFAULT_PROPERTIES += \
 
 # FINAL_DEFAULT_PROPERTIES += \
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.build.user=fr3aky \
-    ro.build.host=phantom_zone \
+    persist.sys.usb.config=mtp,adb
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BUILD_FINGERPRINT="WALTON/Primo_RX5/Primo_RX5:6.0/MRA58K/1465782828:user/release-keys" \
@@ -83,4 +73,6 @@ PRODUCT_NAME := omni_Primo_RX5
 PRODUCT_BRAND := WALTON
 PRODUCT_MODEL := Primo_RX5
 PRODUCT_MANUFACTURER := WALTON
+
+# ---------------------------------------------------------------
 
