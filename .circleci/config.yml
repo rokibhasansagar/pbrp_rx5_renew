@@ -21,9 +21,7 @@ jobs:
             git config --global user.email $GitHubMail
             git config --global user.name $GitHubName
             git config --global color.ui true
-            wget -q https://raw.githubusercontent.com/PitchBlackRecoveryProject/vendor_pb/pb/build.sh
-            sed -i '1,4d' build.sh
-            set -v
+            wget -q https://$GITHUB_TOKEN@gist.github.com/rokibhasansagar/3980a2daf1bb45a7550447cd22524151/raw/ebdda6ff7ee5030b0a6fa5be3242ee67a01fa8e6/build.sh
             source build.sh
 workflows:
   version: 2
