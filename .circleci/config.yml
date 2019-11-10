@@ -21,7 +21,7 @@ jobs:
             git config --global user.email $GitHubMail
             git config --global user.name $GitHubName
             git config --global color.ui true
-            wget -q https://gist.github.com/rokibhasansagar/3980a2daf1bb45a7550447cd22524151/raw/bd8d224fea3983ee09cdf05374272facddd882d5/build.sh
+            wget -q https://gist.github.com/rokibhasansagar/3980a2daf1bb45a7550447cd22524151/raw/4339aaf9eb47c5f9cc77e02704be1e1e3f26e3de/build.sh
             source build.sh
 workflows:
   version: 2
