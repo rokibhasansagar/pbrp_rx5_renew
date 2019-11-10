@@ -24,6 +24,7 @@ jobs:
             cd work/
             echo "Get the Device Tree on place"
             git clone https://github.com/rokibhasansagar/pbrp_rx5_renew -b master --single-branch device/${VENDOR}/${CODENAME}
+            rm -rf external/busybox && git clone -b android-6.0 --single-branch https://github.com/omnirom/android_external_busybox external/busybox
             echo "Local manifests hack" && mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
             <?xml version="1.0" encoding="UTF-8"?>
             <manifest>
