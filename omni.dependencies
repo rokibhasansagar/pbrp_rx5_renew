@@ -1,0 +1,7 @@
+[{
+	"remote": "omnirom",
+	"override": "android_external_busybox",
+	"repository": "android_external_busybox",
+	"target_path": "external/busybox",
+	"revision": "android-8.1"
+}]
