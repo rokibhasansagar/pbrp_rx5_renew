@@ -6,10 +6,9 @@
 		"revision": "android-8.1"
 	},
 	{
-		"override": "android_external_ntfs-3g",
-		"remote": "omnirom",
-		"repository": "android_external_ntfs-3g",
-		"target_path": "external/ntfs-3g",
-		"revision": "android-7.1"
+		"remote": "aosp",
+		"repository": "device/generic/arm64",
+		"target_path": "device/generic/arm64",
+		"revision": "refs/tags/android-6.0.1_r81"
 	}
 ]
