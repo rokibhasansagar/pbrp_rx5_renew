@@ -19,20 +19,19 @@ jobs:
             git config --global user.name $GitHubName
             git config --global color.ui true
             mkdir $(pwd)/work
-            wget -q --show-progress https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/latest/PitchBlackRecoveryProject-master-norepo-20191109.tar.xz -O pitchblack.tar.xz
+            wget -q --show-progress https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/latest/PitchBlackRecoveryProject-master-norepo-20191110.tar.xz -O pitchblack.tar.xz
             tar -xJf pitchblack.tar.xz --directory work/ && rm pitchblack.tar.xz
             cd work/
             echo "Get the Device Tree on place"
             git clone https://github.com/rokibhasansagar/pbrp_rx5_renew -b master --single-branch device/${VENDOR}/${CODENAME}
-            rm -rf external/busybox && git clone -b android-6.0 --single-branch https://github.com/omnirom/android_external_busybox external/busybox
-            echo "Local manifests hack" && mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
-            <?xml version="1.0" encoding="UTF-8"?>
-            <manifest>
-            </manifest>
-            EOF
-            echo "Manifests hack" && mkdir -p .repo/manifests
-            wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
-            cd .repo && ln -s manifests/default.xml manifest.xml && tree -f -h && cd ..
+            # echo "Local manifests hack" && mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
+            # <?xml version="1.0" encoding="UTF-8"?>
+            # <manifest>
+            # </manifest>
+            # EOF
+            # echo "Manifests hack" && mkdir -p .repo/manifests
+            # wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
+            # cd .repo && ln -s manifests/default.xml manifest.xml && tree -f -h && cd ..
             echo "Total size of files with git histories is -" && du -sh .
             ( find . -type d -name ".git" && find . -name ".gitignore" ) | xargs rm -rf
             echo "After deleting git junks, total size is -" && du -sh .
