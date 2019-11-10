@@ -24,17 +24,17 @@ jobs:
             cd work/
             echo "Get the Device Tree on place"
             git clone https://github.com/rokibhasansagar/pbrp_rx5_renew -b master --single-branch device/${VENDOR}/${CODENAME}
-            # echo "Local manifests hack" && mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
-            # <?xml version="1.0" encoding="UTF-8"?>
-            # <manifest>
-            # </manifest>
-            # EOF
-            # echo "Manifests hack" && mkdir -p .repo/manifests
-            # wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
-            # cd .repo && ln -s manifests/default.xml manifest.xml && tree -f -h && cd ..
+            echo "Local manifests hack" && mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
+            <?xml version="1.0" encoding="UTF-8"?>
+            <manifest>
+            </manifest>
+            EOF
+            echo "Manifests hack" && mkdir -p .repo/manifests
+            wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
+            cd .repo && ln -s manifests/default.xml manifest.xml && tree -f -h && cd ..
             echo "Total size of files with git histories is -" && du -sh .
-            ( find . -type d -name ".git" && find . -name ".gitignore" ) | xargs rm -rf
-            echo "After deleting git junks, total size is -" && du -sh .
+            # ( find . -type d -name ".git" && find . -name ".gitignore" ) | xargs rm -rf
+            # echo "After deleting git junks, total size is -" && du -sh .
             tree -a -h -L 5 >> ../tree.log
             curl --upload-file ../tree.log https://transfer.sh/pbrp6.tree.log && echo ""
             echo "Start the Build Process"
