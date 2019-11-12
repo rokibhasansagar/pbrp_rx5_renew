@@ -104,4 +104,4 @@ TARGET_USES_64_BIT_BINDER := true
 
 # PitchBlack Official or Not
 PB_OFFICIAL := false
-PB_GO := true
+# PB_GO := true
