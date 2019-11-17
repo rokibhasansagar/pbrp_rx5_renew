@@ -1,22 +1,30 @@
 [
-	{
-		"override": "android_external_busybox",
-		"remote": "omnirom",
-		"repository": "android_external_busybox",
-		"target_path": "external/busybox",
-		"revision": "android-8.1"
-	},
-	{
-		"remote": "omnirom",
-		"override": "android_external_ntfs-3g",
-		"repository": "android_external_ntfs-3g",
-		"target_path": "external/ntfs-3g",
-		"revision": "android-7.1"
-	},
-	{
-		"remote": "aosp",
-		"repository": "device/generic/arm64",
-		"target_path": "device/generic/arm64",
-		"revision": "refs/tags/android-6.0.1_r81"
-	}
+    {
+        "remote": "omnirom",
+        "override": "android_external_busybox",
+        "repository": "android_external_busybox",
+        "target_path": "external/busybox",
+        "revision": "android-8.1"
+    },
+    {
+        "remote": "omnirom",
+        "override": "android_external_ntfs-3g",
+        "repository": "android_external_ntfs-3g",
+        "target_path": "external/ntfs-3g",
+        "revision": "android-8.1"
+    },
+    {
+        "remote": "omnirom",
+        "override": "android_external_exfat",
+        "repository": "android_external_exfat",
+        "target_path": "external/exfat",
+        "revision": "android-8.1"
+    },
+    {
+        "remote": "omnirom",
+        "override": "android_external_fuse",
+        "repository": "android_external_fuse",
+        "target_path": "external/fuse",
+        "revision": "android-8.0"
+    }
 ]
