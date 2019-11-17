@@ -11,7 +11,6 @@ jobs:
       CODENAME: 'Primo_RX5'
       BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
       TEST_BUILD: 'true'
-      EXTRA_CMD: 'rm -rf device/qcom/ && rm -rf hardware/qcom/ && rm -rf device/generic/'
       PB_LEGACY_MTK: 'true'
     working_directory: /home/builder/pitchblack
     steps:
@@ -32,7 +31,7 @@ jobs:
             git clone https://$GITHUB_TOKEN@github.com/rokibhasansagar/pbrp_rx5_renew -b ${CIRCLE_BRANCH} device/${VENDOR}/${CODENAME}
             rm -rf bootable/recovery && git clone https://github.com/rokibhasansagar/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch --depth 1 bootable/recovery
             rm -rf vendor/pb && git clone https://github.com/rokibhasansagar/vendor_pb -b pb --single-branch --depth 1 vendor/pb
-            [[ -n $EXTRA_CMD ]] && "$EXTRA_CMD"
+            rm -rf device/qcom/ && rm -rf hardware/qcom/ && rm -rf device/generic/
             tree -a -L 4 >> initial_tree.info && curl --upload-file initial_tree.info https://transfer.sh/ && echo ""
             echo "Start the Build Process"
             export ALLOW_MISSING_DEPENDENCIES=true
