@@ -11,6 +11,7 @@ jobs:
       CODENAME: 'Primo_RX5'
       BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
       TEST_BUILD: 'true'
+      PB_GO: 'true'
       PB_LEGACY_MTK: 'true'
     working_directory: /home/builder/pitchblack
     steps:
@@ -52,7 +53,7 @@ jobs:
             cp $TEST_BUILDFILE $UPLOAD_PATH
             export TEST_BUILDREC=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
             cp $TEST_BUILDREC $UPLOAD_PATH
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test ${UPLOAD_PATH}
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-pb_go ${UPLOAD_PATH}
             fi
 workflows:
   version: 2
