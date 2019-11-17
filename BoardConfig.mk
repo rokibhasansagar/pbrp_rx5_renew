@@ -101,7 +101,3 @@ BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/bootimg.mk
 
 TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
-
-# PitchBlack Official or Not
-PB_OFFICIAL := false
-# PB_GO := true
