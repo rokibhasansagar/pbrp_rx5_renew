@@ -53,7 +53,7 @@ jobs:
             cp $TEST_BUILDFILE $UPLOAD_PATH
             export TEST_BUILDREC=$(find $(pwd)/out/target/product/${CODENAME}/recovery.img 2>/dev/null)
             cp $TEST_BUILDREC $UPLOAD_PATH
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-pb_go ${UPLOAD_PATH}
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-pb_go2 ${UPLOAD_PATH}
             fi
 workflows:
   version: 2
@@ -62,5 +62,5 @@ workflows:
       - build:
           filters:
             branches:
-              only: pbrepo6
+              only: pbrepo-mkboot
           context: personal-envs
