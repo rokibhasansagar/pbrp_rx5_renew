@@ -4,10 +4,7 @@ jobs:
     docker:
       - image: fr3akyphantom/pitchblack-builder:latest
     environment:
-      MANIFEST_BRANCH: 'twrp-7.1
-
-
-'
+      MANIFEST_BRANCH: 'twrp-7.1'
       PBRP_BRANCH: 'pb-lite-android-9.0'
       VERSION: '2.9.0'
       VENDOR: 'WALTON'
