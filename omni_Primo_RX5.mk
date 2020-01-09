@@ -83,7 +83,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 	PRIVATE_BUILD_DESC="full_gionee6735_65u_m0-user 6.0 MRA58K 1465782828 release-keys"
 
 # try force addition of fingerprint
-BUILD_FINGERPRINT := "WALTON/Primo_RX5/Primo_RX5:6.0/MRA58K/1465782828:user/release-keys"
+# BUILD_FINGERPRINT := "WALTON/Primo_RX5/Primo_RX5:6.0/MRA58K/1465782828:user/release-keys"
 
 # To override from ADDITIONAL_BUILD_PROPERTIES
 # PRODUCT_PROPERTY_OVERRIDES += \
