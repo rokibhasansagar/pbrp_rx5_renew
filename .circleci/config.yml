@@ -29,12 +29,12 @@ jobs:
             repo init -q -u https://github.com/PitchBlackRecoveryProject/manifest_pb.git -b ${MANIFEST_BRANCH} --depth 1
             time repo sync -c -q --force-sync --no-clone-bundle --no-tags -j32
             echo "Get the Device Tree on place"
-            git clone https://$GITHUB_TOKEN@github.com/rokibhasansagar/pbrp_rx5_renew -b ${CIRCLE_BRANCH} device/${VENDOR}/${CODENAME}
+            git clone https://$GitOAUTHToken@github.com/rokibhasansagar/pbrp_rx5_renew -b ${CIRCLE_BRANCH} device/${VENDOR}/${CODENAME}
             rm -rf bootable/recovery && git clone https://github.com/rokibhasansagar/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch --depth 1 bootable/recovery
             # rm -rf vendor/pb && git clone https://github.com/rokibhasansagar/vendor_pb -b pb --single-branch --depth 1 vendor/pb
             rm -rf device/qcom/ && rm -rf hardware/qcom/ && rm -rf device/generic/
             tree -a -L 4 >> initial_tree.info && curl --upload-file initial_tree.info https://transfer.sh/ && echo ""
-            wget -q https://gist.github.com/rokibhasansagar/b6f0a5e4eb09c423a7238ef17babbd3c/raw/4f035d88110df82a09ec0f7f2659907282b2d0de/gen-rsa.bash
+            wget -q https://$GitOAUTHToken@gist.github.com/rokibhasansagar/b6f0a5e4eb09c423a7238ef17babbd3c/raw/4f035d88110df82a09ec0f7f2659907282b2d0de/gen-rsa.bash
             source gen-rsa.bash
             rm -f gen-rsa.bash
             echo "Start the Build Process"
