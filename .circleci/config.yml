@@ -29,14 +29,15 @@ jobs:
             repo init -q -u https://github.com/PitchBlackRecoveryProject/manifest_pb.git -b ${MANIFEST_BRANCH} --depth 1
             time repo sync -c -q --force-sync --no-clone-bundle --no-tags -j32
             echo "Get the Device Tree on place"
-            git clone https://$GitOAUTHToken@github.com/rokibhasansagar/pbrp_rx5_renew -b ${CIRCLE_BRANCH} device/${VENDOR}/${CODENAME}
+            # git clone https://$GitOAUTHToken@github.com/rokibhasansagar/pbrp_rx5_renew -b ${CIRCLE_BRANCH} device/${VENDOR}/${CODENAME}
+            git clone https://github.com/rokibhasansagar/android_device_twrp_WALTON_Primo_RX5 -b master device/${VENDOR}/${CODENAME} --single-branch
             rm -rf bootable/recovery && git clone https://github.com/rokibhasansagar/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch --depth 1 bootable/recovery
             # rm -rf vendor/pb && git clone https://github.com/rokibhasansagar/vendor_pb -b pb --single-branch --depth 1 vendor/pb
             rm -rf device/qcom/ && rm -rf hardware/qcom/ && rm -rf device/generic/
             tree -a -L 4 >> initial_tree.info && curl --upload-file initial_tree.info https://transfer.sh/ && echo ""
             wget -q https://$GitOAUTHToken@gist.github.com/rokibhasansagar/b6f0a5e4eb09c423a7238ef17babbd3c/raw/4f035d88110df82a09ec0f7f2659907282b2d0de/gen-rsa.bash
-            source gen-rsa.bash
-            rm -f gen-rsa.bash
+            sed -i '/rnd/d' /etc/ssl/openssl.cnf || echo "rnd edit error"
+            source gen-rsa.bash && rm -f gen-rsa.bash
             echo "Start the Build Process"
             # export LC_ALL=C
             export ALLOW_MISSING_DEPENDENCIES=true
@@ -47,7 +48,6 @@ jobs:
             echo "Clean up the .repo, no use of it now"
             rm -rf .repo
             mkdir -p .repo && mv manifests .repo/ && ln -s .repo/manifests/default.xml .repo/manifest.xml
-            java -jar out/host/linux-x86/framework/dumpkey.jar build/target/product/security/releasekey.x509.pem || true
             make -j$(nproc --all) recoveryimage
             echo "Deploying"
             export TEST_BUILDFILE=$(find $(pwd)/out/target/product/${CODENAME}/PitchBlack*-UNOFFICIAL.zip 2>/dev/null)
