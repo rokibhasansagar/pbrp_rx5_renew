@@ -16,17 +16,21 @@
 #
 
 PRODUCT_DEVICE := Primo_RX5
+
 PRODUCT_NAME := omni_Primo_RX5
+
 PRODUCT_BRAND := WALTON
+
 PRODUCT_MODEL := Primo_RX5
+
 PRODUCT_MANUFACTURER := WALTON
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/embedded.mk)
 
 # Inherit some common Omni stuff.
 $(call inherit-product, vendor/pb/config/common.mk)
-
 
 PRODUCT_COPY_FILES += device/WALTON/Primo_RX5/prebuilt/zImage:kernel
 # Fles under $(LOCAL_PATH)/recovery/root/ gets automatically copied into recovery
@@ -36,54 +40,56 @@ PRODUCT_COPY_FILES += device/WALTON/Primo_RX5/prebuilt/zImage:kernel
 # From full_base.mk
 # Put en_US first in the list, so make it default.
 PRODUCT_LOCALES := en_US
+
 # ---------------------------------------------------------------
 # From core_minimal.mk
 # Adoptable external storage supports both ext4 and f2fs
 PRODUCT_PACKAGES += \
-	bu \
-	ip \
-	logd \
-	e2fsck \
-	resize2fs \
-	make_ext4fs \
-	fsck.f2fs \
-	make_f2fs
+    bu \
+    ip \
+    logd \
+    e2fsck \
+    resize2fs \
+    make_ext4fs \
+    fsck.f2fs \
+    make_f2fs
+
 # ---------------------------------------------------------------
 # From runtime_libart.mk
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	dalvik.vm.image-dex2oat-Xms=64m \
-	dalvik.vm.image-dex2oat-Xmx=64m \
-	dalvik.vm.dex2oat-Xms=64m \
-	dalvik.vm.dex2oat-Xmx=512m \
-	ro.dalvik.vm.native.bridge=0
+    dalvik.vm.image-dex2oat-Xms=64m \
+    dalvik.vm.image-dex2oat-Xmx=64m \
+    dalvik.vm.dex2oat-Xms=64m \
+    dalvik.vm.dex2oat-Xmx=512m \
+    ro.dalvik.vm.native.bridge=0
 # ---------------------------------------------------------------
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
-	pm.dexopt.first-boot=interpret-only \
-	pm.dexopt.boot=verify-profile \
-	pm.dexopt.install=interpret-only \
-	pm.dexopt.bg-dexopt=speed-profile \
-	pm.dexopt.ab-ota=speed-profile \
-	pm.dexopt.nsys-library=speed \
-	pm.dexopt.shared-apk=speed \
-	pm.dexopt.forced-dexopt=speed \
-	pm.dexopt.core-app=speed \
-	dalvik.vm.image-dex2oat-filter=verify-at-runtime \
-	dalvik.vm.dex2oat-filter=verify-at-runtime \
-	dalvik.vm.usejit=true
+    pm.dexopt.first-boot=interpret-only \
+    pm.dexopt.boot=verify-profile \
+    pm.dexopt.install=interpret-only \
+    pm.dexopt.bg-dexopt=speed-profile \
+    pm.dexopt.ab-ota=speed-profile \
+    pm.dexopt.nsys-library=speed \
+    pm.dexopt.shared-apk=speed \
+    pm.dexopt.forced-dexopt=speed \
+    pm.dexopt.core-app=speed \
+    dalvik.vm.image-dex2oat-filter=verify-at-runtime \
+    dalvik.vm.dex2oat-filter=verify-at-runtime \
+    dalvik.vm.usejit=true
 
 # FINAL_DEFAULT_PROPERTIES += \
 
 # adb is there, so just add mtp for now
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	persist.sys.usb.config=mtp
+    persist.sys.usb.config=mtp
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-	BUILD_FINGERPRINT="WALTON/Primo_RX5/Primo_RX5:6.0/MRA58K/1465782828:user/release-keys" \
-	PRIVATE_BUILD_DESC="full_gionee6735_65u_m0-user 6.0 MRA58K 1465782828 release-keys"
+    BUILD_FINGERPRINT="WALTON/Primo_RX5/Primo_RX5:6.0/MRA58K/1465782828:user/release-keys" \
+    PRIVATE_BUILD_DESC="full_gionee6735_65u_m0-user 6.0 MRA58K 1465782828 release-keys"
 
 # try force addition of fingerprint
-# BUILD_FINGERPRINT := "WALTON/Primo_RX5/Primo_RX5:6.0/MRA58K/1465782828:user/release-keys"
+BUILD_FINGERPRINT := "WALTON/Primo_RX5/Primo_RX5:6.0/MRA58K/1465782828:user/release-keys"
 
 # To override from ADDITIONAL_BUILD_PROPERTIES
 # PRODUCT_PROPERTY_OVERRIDES += \
