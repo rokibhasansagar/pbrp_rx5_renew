@@ -15,6 +15,12 @@
 # limitations under the License.
 #
 
+PRODUCT_DEVICE := Primo_RX5
+PRODUCT_NAME := omni_Primo_RX5
+PRODUCT_BRAND := WALTON
+PRODUCT_MODEL := Primo_RX5
+PRODUCT_MANUFACTURER := WALTON
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/embedded.mk)
 
@@ -81,9 +87,3 @@ BUILD_FINGERPRINT := "WALTON/Primo_RX5/Primo_RX5:6.0/MRA58K/1465782828:user/rele
 
 # To override from ADDITIONAL_BUILD_PROPERTIES
 # PRODUCT_PROPERTY_OVERRIDES += \
-
-PRODUCT_DEVICE := Primo_RX5
-PRODUCT_NAME := omni_Primo_RX5
-PRODUCT_BRAND := WALTON
-PRODUCT_MODEL := Primo_RX5
-PRODUCT_MANUFACTURER := WALTON
