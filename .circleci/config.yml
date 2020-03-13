@@ -1,54 +1,36 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
-      - image: fr3akyphantom/pitchblack-builder:latest
+      - image: fr3akyphantom/droid-builder:latest
     environment:
+      MANIFEST_BRANCH: 'twrp-6.0'
       # PBRP_BRANCH: 'android-9.0'
       VERSION: '2.9.0'
       VENDOR: 'WALTON'
       CODENAME: 'Primo_RX5'
+      BUILD_LUNCH: 'omni_${CODENAME}-userdebug'
+      TEST_BUILD: 'true'
     working_directory: /home/builder/pitchblack
     steps:
-      - checkout
+      # - checkout
       - run:
           name: AIO Build
           command: |
-            echo "Set GitAuth Infos too"
+            echo "Set GitAuth Infos"
             git config --global user.email $GitHubMail
             git config --global user.name $GitHubName
             git config --global color.ui true
-            mkdir $(pwd)/work
-            wget -q --show-progress https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/latest/PitchBlackRecoveryProject-master-norepo-20191110.tar.xz -O pitchblack.tar.xz
-            tar -xJf pitchblack.tar.xz --directory work/ && rm pitchblack.tar.xz
-            cd work/
-            echo "Get the Device Tree on place"
-            git clone https://github.com/rokibhasansagar/pbrp_rx5_renew -b master --single-branch device/${VENDOR}/${CODENAME}
-            echo "Local manifests hack" && mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
-            <?xml version="1.0" encoding="UTF-8"?>
-            <manifest>
-            </manifest>
-            EOF
-            echo "Manifests hack" && mkdir -p .repo/manifests
-            wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
-            cd .repo && ln -s manifests/default.xml manifest.xml && tree -f -h && cd ..
-            echo "Total size of files with git histories is -" && du -sh .
-            # ( find . -type d -name ".git" && find . -name ".gitignore" ) | xargs rm -rf
-            # echo "After deleting git junks, total size is -" && du -sh .
-            tree -a -h -L 5 >> ../tree.log
-            curl --upload-file ../tree.log https://transfer.sh/pbrp6.tree.log && echo ""
-            echo "Start the Build Process"
-            export ALLOW_MISSING_DEPENDENCIES=true
-            source build/envsetup.sh
-            lunch omni_${CODENAME}-userdebug
-            make -j16 recoveryimage
-            echo "The build output files takes spaces like this -" && du -sh out/target/product/${CODENAME}/*
-            echo "Deploying"
-            mkdir deploy && cd deploy
-            cp -a ../out/target/product/${CODENAME}/*.img .
-            cp -a ../out/target/product/${CODENAME}/PitchBlack*-UNOFFICIAL.zip .
-            cd ../
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "Test Release for $(echo $CODENAME)" -b "PBRP $(echo $VERSION)" -c ${CIRCLE_SHA1} -delete ${VERSION}-test deploy/
+            wget -q https://gist.github.com/rokibhasansagar/62f90b84f5de4fcb3b1313096710b1aa/raw/build.sh
+            chmod a+x build.sh
+            source build.sh
+      - store_artifacts:
+          path: /tmp/PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.log
+      - run:
+          name: Upload CI Log
+          command: curl --upload-file --silent --progress /tmp/PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.log https://transfer.sh && echo ""
+          when: always
+
 workflows:
   version: 2
   build_and_test:
