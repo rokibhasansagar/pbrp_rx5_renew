@@ -23,21 +23,12 @@ jobs:
             git config --global color.ui true
             mkdir -p logs
             bash -l \<< EOF
-            asciinema rec /home/builder/pitchblack/logs/ci.cast
+            asciinema rec -y
             wget -q https://gist.github.com/rokibhasansagar/62f90b84f5de4fcb3b1313096710b1aa/raw/build.sh
             chmod a+x build.sh
             source build.sh
             exit
             EOF
-      - run:
-          name: Make asciinema Log
-          command: |
-            ls -a .
-            asciinema cat ci.cast > ci_cast.log || true
-            ls -a .
-            for file in *; do curl --upload-file $file https://transfer.sh/ && echo ""; done; fi
-          working_directory: /home/builder/pitchblack/logs
-          when: always
 
 workflows:
   version: 2
