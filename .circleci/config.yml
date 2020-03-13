@@ -9,7 +9,7 @@ jobs:
       VERSION: '2.9.0'
       VENDOR: 'WALTON'
       CODENAME: 'Primo_RX5'
-      BUILD_LUNCH: 'omni_${CODENAME}-userdebug'
+      BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
       TEST_BUILD: 'true'
     working_directory: /home/builder/pitchblack
     steps:
