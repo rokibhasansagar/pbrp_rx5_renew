@@ -23,26 +23,20 @@ jobs:
             git config --global color.ui true
             mkdir -p logs
             bash -l \<< EOF
-            asciinema rec logs/ci.cast
+            asciinema rec /home/builder/pitchblack/logs/ci.cast
             wget -q https://gist.github.com/rokibhasansagar/62f90b84f5de4fcb3b1313096710b1aa/raw/build.sh
             chmod a+x build.sh
             source build.sh
             exit
             EOF
-            cd logs && ls -a . && asciinema cat ci.cast > ci_cast.log && ls -a . && cd -
-      - store_artifacts:
-          path: CI.log
-          destination: PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.log
-      - store_artifacts:
-          path: logs/ci_cast.log
-          destination: PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.cast.log
       - run:
-          name: Upload CI Log
+          name: Make asciinema Log
           command: |
-            curl --upload-file CI.log https://transfer.sh/PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.log || true
-            echo -e "\n\n"
-            curl --upload-file logs/ci_cast.log https://transfer.sh/PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_ci_cast.log || true
-            echo -e "\n\n\n"
+            ls -a .
+            asciinema cat ci.cast > ci_cast.log || true
+            ls -a .
+            for file in *; do curl --upload-file $file https://transfer.sh/ && echo ""; done; fi
+          working_directory: /home/builder/pitchblack/logs
           when: always
 
 workflows:
