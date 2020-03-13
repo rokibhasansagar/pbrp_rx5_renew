@@ -21,8 +21,16 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/embedded.mk)
 # Inherit some common Omni stuff.
 $(call inherit-product, vendor/pb/config/common.mk)
 
+PRODUCT_DEVICE := Primo_RX5
+PRODUCT_NAME := omni_Primo_RX5
+PRODUCT_BRAND := WALTON
+PRODUCT_MODEL := Primo_RX5
+PRODUCT_MANUFACTURER := WALTON
+
+# ---------------------------------------------------------------
 
 PRODUCT_COPY_FILES += device/WALTON/Primo_RX5/prebuilt/zImage:kernel
+
 # Fles under $(LOCAL_PATH)/recovery/root/ gets automatically copied into recovery
 # PRODUCT_COPY_FILES += $(LOCAL_PATH)/recovery/root/*:root/*
 
@@ -30,6 +38,7 @@ PRODUCT_COPY_FILES += device/WALTON/Primo_RX5/prebuilt/zImage:kernel
 # From full_base.mk
 # Put en_US first in the list, so make it default.
 PRODUCT_LOCALES := en_US
+
 # ---------------------------------------------------------------
 # From core_minimal.mk
 # Adoptable external storage supports both ext4 and f2fs
@@ -42,6 +51,7 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     fsck.f2fs \
     make_f2fs
+
 # ---------------------------------------------------------------
 # From runtime_libart.mk
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -50,6 +60,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-Xms=64m \
     dalvik.vm.dex2oat-Xmx=512m \
     ro.dalvik.vm.native.bridge=0
+
 # ---------------------------------------------------------------
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
@@ -79,15 +90,3 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 # try force addition of fingerprint
 BUILD_FINGERPRINT="WALTON/Primo_RX5/Primo_RX5:6.0/MRA58K/1465782828:user/release-keys"
 
-# To override from ADDITIONAL_BUILD_PROPERTIES
-# PRODUCT_PROPERTY_OVERRIDES += \
-
-# ---------------------------------------------------------------
-
-PRODUCT_DEVICE := Primo_RX5
-PRODUCT_NAME := omni_Primo_RX5
-PRODUCT_BRAND := WALTON
-PRODUCT_MODEL := Primo_RX5
-PRODUCT_MANUFACTURER := WALTON
-
-# ---------------------------------------------------------------
