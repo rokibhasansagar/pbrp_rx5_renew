@@ -9,6 +9,7 @@ jobs:
       VERSION: '2.9.0'
       VENDOR: 'WALTON'
       CODENAME: 'Primo_RX5'
+      EXTRA_CMD: "cd device/$VENDOR/$CODENAME; apt-get -qqy update; apt-get -qqy install dos2unix; dos2unix *;"
       BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
       TEST_BUILD: 'true'
       USE_NINJA: 'true'
