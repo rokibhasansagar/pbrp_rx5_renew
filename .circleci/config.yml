@@ -21,14 +21,25 @@ jobs:
             git config --global user.email $GitHubMail
             git config --global user.name $GitHubName
             git config --global color.ui true
+            /bin/bash \<< EOF
+            asciinema rec CI.cast -q -y
             wget -q https://gist.github.com/rokibhasansagar/62f90b84f5de4fcb3b1313096710b1aa/raw/build.sh
             chmod a+x build.sh
             source build.sh
+            exit
+            EOF
+            asciinema cat CI.cast > CI.cast.log
       - store_artifacts:
-          path: /tmp/PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.log
+          path: CI.log
+          destination: PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.log
+      - store_artifacts:
+          path: CI.cast.log
+          destination: PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.cast.log
       - run:
           name: Upload CI Log
-          command: curl --upload-file --silent --progress /tmp/PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.log https://transfer.sh && echo ""
+          command: |
+            curl --upload-file CI.log https://transfer.sh/PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.log && echo -e "\n\n"
+            curl --upload-file CI.cast.log https://transfer.sh/PBRP_${CODENAME}_${CIRCLE_BUILD_NUM}_CI.cast.log && echo -e "\n\n\n"
           when: always
 
 workflows:
