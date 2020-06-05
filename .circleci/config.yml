@@ -9,7 +9,6 @@ jobs:
       # VERSION: '2.9.1'
       VENDOR: 'WALTON'
       CODENAME: 'Primo_RX5'
-      EXTRA_CMD: '"'dos2unix *; sed -i '/BASH := bash/a DO_SOURCE := \$(shell bash -c "source $@")' build/core/config.mk; sed -i 's/\$(BASH) \$(PB_SCRIPT)/\$(DO_SOURCE) \$(PB_SCRIPT)/g' build/core/Makefile'"'
       BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
       TEST_BUILD: 'true'
       PB_ENGLISH: 'true'
@@ -23,7 +22,7 @@ jobs:
             git config --global user.email $GitHubMail
             git config --global user.name $GitHubName
             git config --global color.ui true
-            wget -q https://gist.github.com/rokibhasansagar/62f90b84f5de4fcb3b1313096710b1aa/raw/build.sh
+            wget -q https://gist.github.com/rokibhasansagar/10f470348d956698ef64d155522f789e/raw/build.sh
             chmod a+x build.sh
             source build.sh
 
