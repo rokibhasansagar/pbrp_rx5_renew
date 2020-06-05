@@ -2,17 +2,17 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: fr3akyphantom/droid-builder:latest
+      - image: fr3akyphantom/droid-builder:focal
     environment:
-      MANIFEST_BRANCH: 'twrp-7.1'
+      MANIFEST_BRANCH: 'twrp-6.0'
       # PBRP_BRANCH: 'android-9.0'
-      VERSION: '2.9.0'
+      # VERSION: '2.9.1'
       VENDOR: 'WALTON'
       CODENAME: 'Primo_RX5'
-      EXTRA_CMD: "cd device/$VENDOR/$CODENAME; apt-get -qqy update; apt-get -qqy install dos2unix; dos2unix *;"
+      EXTRA_CMD: "dos2unix *; sed -i '/BASH := bash/a DO_SOURCE := \$(shell bash -c "source $@")' build/core/config.mk; sed -i 's/\$(BASH) \$(PB_SCRIPT)/\$(DO_SOURCE) \$(PB_SCRIPT)/g' build/core/Makefile"
       BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
       TEST_BUILD: 'true'
-      USE_NINJA: 'true'
+      PB_ENGLISH: 'true'
     working_directory: /home/builder/pitchblack
     steps:
       # - checkout
