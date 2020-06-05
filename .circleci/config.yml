@@ -9,7 +9,7 @@ jobs:
       # VERSION: '2.9.1'
       VENDOR: 'WALTON'
       CODENAME: 'Primo_RX5'
-      EXTRA_CMD: "dos2unix *; sed -i '/BASH := bash/a DO_SOURCE := \$(shell bash -c "source $@")' build/core/config.mk; sed -i 's/\$(BASH) \$(PB_SCRIPT)/\$(DO_SOURCE) \$(PB_SCRIPT)/g' build/core/Makefile"
+      EXTRA_CMD: '"'dos2unix *; sed -i '/BASH := bash/a DO_SOURCE := \$(shell bash -c "source $@")' build/core/config.mk; sed -i 's/\$(BASH) \$(PB_SCRIPT)/\$(DO_SOURCE) \$(PB_SCRIPT)/g' build/core/Makefile'"'
       BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
       TEST_BUILD: 'true'
       PB_ENGLISH: 'true'
