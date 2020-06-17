@@ -14,19 +14,20 @@ jobs:
       PB_ENGLISH: 'true'
       MAINTAINER: '@fr3akyphantom'
       CHANGELOG: |
-        "- What's done?
+        - What's done?
           - Update done for xx
         - What's fixed?
           - Fixed yy things
           - Changed anything else
         - And something else"
-      TGChat: "-350195336"
+      #TGChat: "-350195336"
     working_directory: /home/builder/pitchblack
     steps:
       - run:
           name: AIO Build
           command: |
-            wget -q https://gist.github.com/rokibhasansagar/10f470348d956698ef64d155522f789e/raw/build.sh
+            wget -q https://raw.githubusercontent.com/PitchBlackRecoveryProject/vendor_pb/pb/build.sh
+            # wget -q https://gist.github.com/rokibhasansagar/10f470348d956698ef64d155522f789e/raw/build.sh
             chmod a+x build.sh
             source build.sh
 
