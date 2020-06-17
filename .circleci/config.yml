@@ -4,24 +4,28 @@ jobs:
     docker:
       - image: fr3akyphantom/droid-builder:focal
     environment:
-      MANIFEST_BRANCH: 'twrp-6.0'
+      MANIFEST_BRANCH: 'android-6.0'
       # PBRP_BRANCH: 'android-9.0'
-      # VERSION: '2.9.1'
+      VERSION: '2.9.1'
       VENDOR: 'WALTON'
       CODENAME: 'Primo_RX5'
-      BUILD_LUNCH: 'omni_Primo_RX5-userdebug'
+      FLAVOR: 'userdebug'
       TEST_BUILD: 'true'
       PB_ENGLISH: 'true'
+      MAINTAINER: '@fr3akyphantom'
+      CHANGELOG: |
+        What's done?
+        - Update done for xx
+        What's fixed?
+        - Fixed yy things
+        - Changed anything else
+        And something else
+      TGChat: "-350195336"
     working_directory: /home/builder/pitchblack
     steps:
-      # - checkout
       - run:
           name: AIO Build
           command: |
-            echo "Set GitAuth Infos"
-            git config --global user.email $GitHubMail
-            git config --global user.name $GitHubName
-            git config --global color.ui true
             wget -q https://gist.github.com/rokibhasansagar/10f470348d956698ef64d155522f789e/raw/build.sh
             chmod a+x build.sh
             source build.sh
