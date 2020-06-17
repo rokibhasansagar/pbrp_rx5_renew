@@ -14,12 +14,12 @@ jobs:
       PB_ENGLISH: 'true'
       MAINTAINER: '@fr3akyphantom'
       CHANGELOG: |
-        - What's done?
+        "- What's done?
           - Update done for xx
         - What's fixed?
           - Fixed yy things
           - Changed anything else
-        - And something else
+        - And something else"
       TGChat: "-350195336"
     working_directory: /home/builder/pitchblack
     steps:
